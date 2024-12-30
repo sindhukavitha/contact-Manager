@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Styles from the provided code */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            width: 230px;
+            height: 150vh;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+           
+        }
+        .navbar a {
+            padding: 15px;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            position: relative;
+            background-color: #34495e;
+            margin: 40px 0;
+            transition: background-color 0.3s, transform 0.3s;
+            border-left: 5px solid transparent;
+        }
+        
+
+        .container {
+            margin-left: 220px;
+            padding: 30px;
+            padding-top: 80px;
+        }
+
+        .back-arrow {
+            font-size: 24px;
+            color: #2c3e50;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .back-arrow i {
+            margin-right: 8px;
+        }
+
+        h1, h2 {
+            color: #2c3e50;
+        }
+
+        form {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        form input {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+        }
+
+        form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #2980b9;
+        }
+
+        ul {
+            list-style-type: none;
+            margin-top: 10px;
+            padding-left: 0;
+        }
+
+        ul li {
+            background-color: #ecf0f1;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        ul li a {
+            color: black;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .assign-btn {
+            padding: 5px 15px;
+            font-size: 14px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .assign-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Vertical NavBar -->
+    <div class="navbar">
+        <a href="{{url_for('get_contacts')}}"><i class="fas fa-address-book"></i> Contacts</a>
+        <a href="#"><i class="fas fa-star"></i> Highlights</a>
+        <a href="#"><i class="fas fa-cog"></i> Organise</a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+    <h1>Favorite Contacts</h1>
+    <div class="contacts-list">
+        {% for contact in contacts %}
+            <div class="contact">
+                <a href="{{ url_for('view_favorites', contact_id=contact[0]) }}" style="flex-grow: 1; display: flex; align-items: center; text-decoration: none; color: inherit;">
+                    <div class="contact-initial">{{ contact[2][0]|upper }}</div>
+                    <div class="contact-content" style="margin-left: 10px;">{{ contact[2] }}</div>
+                </a>
+    
+                <div class="contact-actions">
+                    <form action="{{ url_for('remove_favorite', contact_id=contact[0]) }}" method="POST" style="display: inline;">
+                        <button type="submit" title="Remove from Favorites" onclick="return confirm('Are you sure you want to remove this contact from favorites?');">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+</div>
+</body>
+</html>

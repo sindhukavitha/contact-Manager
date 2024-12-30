@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Detail</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Notification Detail</h1>
+    <div>
+        <h2>{{ notifications[2] }}</h2> <!-- Notification title -->
+        <p>Date: {{ notifications[3] }}</p> <!-- Notification date -->
+        <p>{{ notifications[4] }}</p> <!-- Notification details -->
+    </div>
+    <a href="{{ url_for('get_contacts') }}">Back to Contact</a> <!-- Link back to contacts -->
+</body>
+</html>
